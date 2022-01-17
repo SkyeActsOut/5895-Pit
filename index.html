@@ -99,7 +99,7 @@
             console.log (t)
             $(".5895").html(t.team_number);
 
-            TBA.getEvent ("pahat", "2020").then (event => { // Get the event currently running — STUB of Hatboro 2020 since I actually went there
+            TBA.getEvent (config.EVENT, config.YEAR).then (event => { // Get the event currently running — STUB of Hatboro 2020 since I actually went there
                 console.log (event)
                 $(".event_name").html(event.name)
                 $(".event_year").html(event.year)
