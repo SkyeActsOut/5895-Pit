@@ -1,0 +1,35 @@
+.match {
+    display: flex;
+}
+
+.match * {
+    padding: 10px;
+}
+
+.teams {
+    display: block;
+}
+
+.teams .blue {
+    display: flex;
+    width: 100%;
+    /* color: blue; */
+    /* padding: 10px; */
+}
+
+.teams .red {
+    display: flex;
+    width: 100%;
+    /* padding: 10px; */
+}
+
+.blue {
+    color: blue;
+}
+.red {
+    color: red;
+}
+
+.teams .team {
+    /* padding: 10px; */
+}
