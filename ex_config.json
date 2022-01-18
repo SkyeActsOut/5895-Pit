@@ -1,8 +1,10 @@
 {
 
     "TOKEN": "123456789",
-    "OPR_KEY": "123456789",
+    "OPR_KEY": "12345asdfgh",
+    "SCOUT_KEY": "12345asdfgh",
     "EVENT": "pahat",
-    "YEAR": "2020"
+    "YEAR": "2020",
+    "TEAM": "5895"
 
 }

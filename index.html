@@ -1,172 +1,71 @@
 
 <head>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.21/jquery.csv.min.js"></script>
-    <script src="./bluealiance.js"></script>
+
+    <!-- TBA API -->
+    <script src="./api/bluealiance.js"></script>
+
+    <!-- CUSTON FUNCTION SCRIPTS-->
+    <script src="./src/core_func.js"></script>
+    <script src="./src/team_func.js"></script>
+    <script src="./src/time_func.js"></script>
+
+    <!-- MAIN SCRIPT -->
+    <script src="./src/main.js"></script>
+
+    <!-- TODO FEATURES -->
+    <script src="./src/insults.js"></script>
+
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
+
 </head>
 
 <html> 
 
-    <div class="5895">
+    <body>
 
 
+        <div class="event">
 
-    </div>
+            <div class="title">5895</div>
+            <div class="event_name"></div>
+            <div class="event_year"></div>
+    
+        </div>
+        <!-- <div class="insults">
 
-    <div class="event">
+        </div> -->
 
-        <div class="event_name"></div>
-        <div class="event_year"></div>
-        <!-- <div class="year"></div>
-        <div class="year"></div>
-        <div class="year"></div> -->
+        <div class="container">
 
-    </div>
+            <div class="matches">
 
-    <div class="matches">
+                <p>All Matches</p>
+                <div class="match_list"></div>
 
-        <div class="match_list"></div>
+            </div>
 
-    </div>
+            <hr>
+
+            <div class="info">
+                <p>Current Match</p>
+                <div class="curr_match"></div>
+                <p>Next Match</p>
+                <div class="next_match"></div>
+                <div class="match_teams"></div>
+
+                <!-- <hr> -->
+
+            </div>
+
+        </div>
+
+    </body>
 
 </html>
-
-<script>
-
-    // Gets the OPR spreadsheet URL to be loaded through CSV
-    function loadOPR (key) {
-        console.log (key)
-        let sheet_name = 'pahat_opr'
-        var url= `https://docs.google.com/spreadsheets/d/${key}/gviz/tq?tqx=out:csv&sheet=${sheet_name}`;
-        return url;
-    }
-
-    // TEAM FUNCTIONS
-    function getTeam (br, i) { // Gets a team based on the blue/red var — bolds 5895 so it's v i s i b l e
-        let t = br.team_keys[i].slice(3);
-        if (t == '5895')
-            return `<strong>${t}</strong>`
-        return t;
-    }
-    function getWinner (m){ // Gets a matches winning team or none if it hasn't happened... I think 
-        let win = m.winning_alliance;
-        if (win == 'blue')
-            return `<div class='blue'>[X]</div>`
-        else if (win=='red')
-            return `<div class='red'>[X]</div>`
-        return `<div class='undc'>[X]</div>`
-    }
-    function getOPR (opr, team) { // Gets a teams OPR based on the CSV array for OPR
-        let o = '??';
-        opr.forEach(t => {
-            if (t[0] == team){
-                o = t[3];
-            }
-        })
-        return o;
-    }
-
-    // TIME FUNCTIONS
-    function convertMin (t) { // Converts mins to be read-able
-        if (t.toString().length == 1)
-            return '0' + t
-        return t;
-    }
-    function convertHr (t) { // Converts hours from Military to normal
-        let _t = t - 12;
-        return Math.abs(_t)
-    }
-    function AM_PM (t) { // Gets AM / PM
-        let _t = t - 12;
-        if (_t < 0)
-            return "AM"
-        return "PM"
-    }
-
-    // https://stackoverflow.com/questions/4631928/convert-utc-epoch-to-local-date/22237139
-    function epochToDate (e) {
-        var d = new Date(0); 
-        d.setUTCSeconds(e);
-        return `${convertHr(d.getHours())}:${convertMin(d.getMinutes())} ${AM_PM(d.getHours())}`
-    }
-
-    $.get( "config.json", function( config ) { // loads the config w/ TBA key & spreadsheet key
-
-        const TBA = new BlueAlliance (config.TOKEN) // Create object for TBA API
-
-        TBA.getTeam(5895).then (t => { // Get our team
-            console.log (t)
-            $(".5895").html(t.team_number);
-
-            TBA.getEvent (config.EVENT, config.YEAR).then (event => { // Get the event currently running — STUB of Hatboro 2020 since I actually went there
-                console.log (event)
-                $(".event_name").html(event.name)
-                $(".event_year").html(event.year)
-
-                // Comment out interval for non-production
-                // setInterval(() => {
-
-                    TBA.getMatchesAtEvent (event).then (matches => { // Get all matches for the event
-
-                        $.get(loadOPR(config.OPR_KEY)).then ( opr_raw => { // Loads the OPR spreadsheet as raw string data
-                
-                            opr = $.csv.toArrays(opr_raw) // converts the OPR raw string data into an array through a CSV
-
-                            console.log (matches)
-                            console.log (opr)
-                            
-                            let s = ''
-
-                            matches.forEach(match => { // Gets all matches
-
-                                let blue = match.alliances.blue; // gets blue & red alliance teams
-                                let red = match.alliances.red;
-
-                                // Each individual match is added to a string housing the data
-                                s += 
-                                    `
-                                        <div class='match'>
-                                            <div class='match_num'>
-                                                ${match.comp_level} : ${match.match_number}
-                                            </div>
-                                            <div class='time'>
-                                                ${epochToDate(match.predicted_time)}
-                                            </div>
-                                            <div class='teams'>
-                                                <div class='blue'>
-                                                    <div class='team'>${getTeam(blue, 0)} (${getOPR (opr, getTeam(blue, 0))})</div>
-                                                    <div class='team'>${getTeam(blue, 1)} (${getOPR (opr, getTeam(blue, 1))})</div>
-                                                    <div class='team'>${getTeam(blue, 2)} (${getOPR (opr, getTeam(blue, 2))})</div>
-                                                </div>
-                                                <div class='red'>
-                                                    <div class='team'>${getTeam(red, 0)} (${getOPR (opr, getTeam(blue, 0))})</div>
-                                                    <div class='team'>${getTeam(red, 1)} (${getOPR (opr, getTeam(red, 1))})</div>
-                                                    <div class='team'>${getTeam(red, 2)} (${getOPR (opr, getTeam(red, 2))})</div>
-                                                </div>
-                                            </div>
-                                            <div class='score'>
-                                                ${getWinner(match)}
-                                            </div>
-                                        </div>
-                                    `
-                                
-                                // console.log (s)
-
-                            });
-
-                            $(".match_list").html(s) 
-
-                        })
-                
-                    })
-                    
-                // }, 1000 * 10);
-
-            })
-
-        })
-
-    });
-    
-</script>

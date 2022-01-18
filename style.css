@@ -1,13 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0.025rem;
+}
+
+.insults {
+    /* margin: auto; */
+    /* margin-top: 1%; */
+    margin-bottom: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    text-align: center;
+    height: 3%;
+    /* background-color: blue; */
+}
+
+.event {
+    display: flex;
+    width: 75%;
+    height: 2%;
+    margin-top: 1%;
+    margin-left: auto;
+    margin-right: auto;
+    /* margin: auto; */
+    padding-bottom: 1.5%;
+    /* background-color: aquamarine; */
+}
+.event * {
+    font-size: 1.25rem;
+    text-align: center;
+    margin: auto;
+}
+.event .title {
+    width: 33%;
+}
+.event .event_name {
+    width: 33%;
+}
+.event .event_year {
+    width: 33%;
+}
+
+.container {
+    width: 95%;
+    height: 90%;
+    overflow-x: hidden;
+    display: flex;
+}
+
+.info {
+    display: block;
+    width: 47.5%;
+    height: 95%;
+    overflow-y: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+p {
+    text-decoration: underline;
+    font-size: 1.05rem;
+    font-weight: 700;
+    /* padding-left: 1.5rem; */
+}
+
+.matches {
+    /* background-color: beige; */
+    /* margin: auto; */
+    margin-left: auto;
+    margin-right: auto;
+    width: 47.5%;
+    height: 95%;
+    /* max-height: 80vh; */
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
 .match {
     display: flex;
 }
 
 .match * {
     padding: 10px;
+    margin:auto;
+} 
+
+.info .match * {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.scout_team {
+    display: flex;
+    margin-top: 10px;
+}
+.scout_team .red, .blue {
+    width: 5%;
+    margin: auto;
+}
+.scout_team .data {
+    width: 90%;
+    /* background-color: antiquewhite; */
+    display: flex;
+}
+.scout_team .data span {
+    width: 20%;
+    margin: auto;
+    text-align: center;
+}
+.subjective {
+    padding: 2px;
+    width: 100%;
+    margin-left: 2.5%;
+    /* margin-left: auto; */
+    /* background-color: aqua; */
+}
+.subj_line {
+    display: flex;
+    /* background-color: antiquewhite; */
+    padding: 5px;
+    /* background-color: beige; */
+    font-size: 0.75rem;
+}
+.subj_line .one {
+    width: 25%;
+}
+.subj_line .two {
+    width: 75%;
+    /* background-color: pink; */
+}
+.next_match {
+    /* overflow-y: scroll;
+    overflow-x: hidden; */
+}
+
+/* .subjective .subj_line::before {
+    content: '*';
+} */
+
+.match_num {
+    display: block;
+    width: 18.5%;
+}
+
+.time {
+    display: block;
+    width: 12.5%;
+}
+
+.score {
+    display: block;
+    width: 4%;
 }
 
 .teams {
     display: block;
+    width: 70%;
 }
 
 .teams .blue {
