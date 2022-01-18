@@ -1,3 +1,5 @@
+![Brunswick Eruption 2021](https://user-images.githubusercontent.com/34521078/150027259-ccdc63c1-2553-4a99-8b22-647bd87bbdf9.jpg)
+
 # 5895 Pit 
 
 The ~o f f i c i a l~? pit screen for 5895 (@PeddieRobotics) created by Skye Kychenthal '22
@@ -6,7 +8,7 @@ The ~o f f i c i a l~? pit screen for 5895 (@PeddieRobotics) created by Skye Kyc
 
 ### Production Notes
 1. This is entirely a front-end application, so a web-server such [http-server](https://www.npmjs.com/package/http-server) or Apache2 is required to run. 
-2. `Config.JSON` is required to run. Example config.JSON [here]().
+2. `Config.JSON` is required to run. Example config.JSON [here](https://github.com/SkyMocha/5895-Pit/blob/main/ex_config.json).
 
 ### General Notes
 1. This app is currently so 5895-specific that you'd likely have to re-write most of it to be for other teams. In the future I might create another version thats more of a template, and that has sections for including your own OPR & Scouting Data. But I have to finish this application first.
