@@ -7,7 +7,7 @@
 */
 
 /**
-*   Makes a team s t r o n g
+*   @description Makes a team s t r o n g
 *   @param {String} sheet - the specific google sheets spreadsheet
 *   @returns bolded text
 */
@@ -18,7 +18,7 @@ function strong (t, user_team) {
 }
 
 /**
-*   Gets a specific team based on the red or blue variable from TBA
+*   @description  Gets a specific team based on the red or blue variable from TBA
 *   @param {Array} br - The blue or red team ie b/r
 *   @param {Int} i - the index of the team on blue or red
 *   @returns {String} the team IE. 5895
@@ -29,7 +29,7 @@ function getTeam (br, i) { // Gets a team based on the blue/red var — bolds 5
 }
 
 /**
-*   Is the team in this match?
+*   @description Is the team in this match?
 *   @param {Array} blue
 *   @param {Array} red
 *   @param {String} user_team - The team currently using this application
@@ -45,7 +45,7 @@ function inMatch(blue, red, user_team) {
     return false;
 }
 /**
-*   Who won this match? Return a div with the winner color.
+*   @description Who won this match? Return a div with the winner color.
 *   @param {Object} m - The specific match
 *   @returns {Div}
 */
@@ -58,15 +58,15 @@ function getWinner (m){ // Gets a matches winning team or none if it hasn't happ
     else if (win=='red')
         return `<div class='red'>[X]</div>`
 
-    // checks for ties or possible TBA errors
+    // CHECKS FOR TIES
     // Comment out to purposefully break an event to check how curr & next events are functioning
-    // else if (m.score_breakdown.blue.adjustPoints == m.score_breakdown.red.adjustPoints) 
-    //     return `<div class='red'>[T]</div>`
+    else if (m.alliances.blue.score == m.alliances.red.score) 
+        return `<div class='red'>[T]</div>`
     
     return false
 }
 /**
-*   Gets a teams OPR from our data
+*   @description Gets a teams OPR from our data
 *   @param {Array} OPR - the OPR spreadsheet as a CSV
 *   @param {String} team - IE. 5895
 *   @returns {Int}
@@ -82,7 +82,7 @@ function getOPR (opr, team) { // Gets a teams OPR based on the CSV array for OPR
     return o;
 }
 /**
-*   Loads the OBJECTIVE scouting data div columns for each category
+*   @description Loads the OBJECTIVE scouting data div columns for each category
 *   @param {Array} scout - the Souting spreadsheet as a CSV
 *   @param {String} team - IE. 5895
 *   @returns {Div}
@@ -99,7 +99,7 @@ function loadScoutData (scout, team) {
     return o;
 }
 /**
-*   Loads the SUBJECTIVE scouting data div columns for each category
+*   @description Loads the SUBJECTIVE scouting data div columns for each category
 *   @param {Array} scout_char - the Subjective Souting charachteristcs spreadsheet as a CSV
 *   @param {String} team - IE. 5895
 *   @returns {Div}
@@ -133,7 +133,7 @@ function loadSubjectiveData (scout_char, team) {
 }
 
 /**
-*   Expands the competition level
+*   @description Expands the competition level
 *   @param {String} t - shortened match name
 *   @returns {String}
 */
@@ -149,7 +149,7 @@ function compLevelExpan (t) {
 }
 
 /**
-*   Returns a div element for each individual team that needs to be scouted
+*   @description Returns a div element for each individual team that needs to be scouted
 *   @param {Array} scout - scouting CSV array
 *   @param {Array} scout_char - scouting characteristics CSV array
 *   @param {String} team - IE. 5895
@@ -163,7 +163,7 @@ function dataDiv (scout, scout_char, team, user_team) {
 }
 
 /**
-*   Gets the OPR Div to append to the string
+*   @description Gets the OPR Div to append to the string
 *   @param {Array} opr - OPR CSV array
 *   @param {String} team - IE. 5895
 *   @param {String} user_team - The team currently running this application

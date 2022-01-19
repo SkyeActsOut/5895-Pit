@@ -1,0 +1,25 @@
+{
+  "name": "stub_api",
+  "version": "1.0.0",
+  "description": "Stub API for TBA 2022",
+  "main": "stub.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SkyMocha/5895-Pit.git"
+  },
+  "keywords": [
+    "FRC"
+  ],
+  "author": "SkyMocha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SkyMocha/5895-Pit/issues"
+  },
+  "homepage": "https://github.com/SkyMocha/5895-Pit#readme",
+  "dependencies": {
+    "express.js": "^1.0.0"
+  }
+}

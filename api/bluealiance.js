@@ -1,5 +1,7 @@
-// Inspired by https://github.com/nitroxplunge/bluealliance/blob/master/src/bluealliance.js
-// Modified by Skye Kychenthal to work front-end rather than back-end Node.JS
+/**
+ * @description Modified Node.JS TBA API to work on ES6
+ * @link https://github.com/nitroxplunge/bluealliance/blob/master/src/bluealliance.js 
+ */
 
 class BlueAlliance {
     /**
@@ -16,14 +18,22 @@ class BlueAlliance {
     async callTBA(request) {
         var authkey = this.authkey;
         
-        if (request !== "/status") { this.status = await this.callTBA("/status") }
         return new Promise(function(resolve, reject) {
             var xhr = new XMLHttpRequest();
 
-            xhr.onreadystatechange = function() { if (this.readyState === 4) resolve(JSON.parse(this.responseText)) }
+            xhr.onerror = function () {
+                resolve("Err");
+            }
+
+            xhr.onreadystatechange = function() { 
+                if (this.readyState === 4 && this.responseText != '') 
+                    resolve(JSON.parse(this.responseText)) 
+            }
 
             xhr.open("GET", "https://www.thebluealliance.com/api/v3" + request);
+
             xhr.setRequestHeader("X-TBA-Auth-Key", authkey);
+
             xhr.send();
         });
     }
@@ -168,6 +178,111 @@ class BlueAlliance {
     isMatchDone(match) {
         if (match.actual_time < new Date().getTime()) return true;
         return false;
+    }
+
+};
+
+/**
+ * @description Modified from Prod API to work of the Stub server
+ * @author Skye Kychenthal
+ */
+class StubTBA {
+
+    /**
+     * @var {String} uri The base URL for all Stub API calls
+     */
+    constructor () {
+        const url = 'localhost'
+        const port = 3000
+        const base = `api/2022`
+        this.uri = `http://${url}:${port}/${base}`
+    }
+
+    async callTBA(request) {
+
+        var uri = this.uri;
+        
+        return new Promise(function(resolve, reject) {
+            var xhr = new XMLHttpRequest();
+
+            xhr.onerror = function () {
+                resolve("Err");
+            }
+
+            xhr.onreadystatechange = function() { 
+                if (this.readyState === 4 && this.responseText != '') 
+                    resolve(JSON.parse(this.responseText)) 
+            }
+
+            xhr.open("GET", `${uri}` + request);
+        
+            xhr.send();
+        })    
+
+    }
+
+    // BASE FUNCTIONS
+
+    /**
+     * Base function - Gives team information about a team.
+     * @param {Int|String} teamnum - The FIRST team number of the team.
+     * @returns {Promise<Object>} A promise containing a team object representing the team.
+     * @async
+     */
+    async getTeam(teamnum) {
+        var teamkey = "frc" + teamnum;
+        return await this.callTBA("/team/" + teamkey);
+    }
+
+    /**
+     * Base function - Gives information about an event.
+     * @param {Int|String} eventcode - The 4 letter code for the event as specified on https://frc-events.firstinspires.org/2018/.
+     * @param {Int|String} [year] - The 4 digit year of the event.
+     * @returns {Promise<Object>} A promise containing an event object representing the event.
+     * @async
+     */
+    async getEvent(eventcode, year) {
+        var eventkey = year + eventcode.toString().toLowerCase();
+        return await this.callTBA("/event/" + eventkey);
+    }
+
+    /**
+     * Base function - Gives information about a match.
+     * @param {Object} event - The event that the match takes place at.
+     * @param {String} complevel - The level of play of the match (q, ef, qf, sf, f) (qualifications, eliminations, quarter finals, semi-finals, finals)
+     * @param {Int} matchnum - The number of the match in the competition level.
+     * @param {Int} seminum - The number of the match in the match set.
+     * @returns {Promise<Object>} A promise containing a match object representing a match.
+     * @async
+     */
+    async getMatch(event, complevel, matchnum, seminum) {
+        if (!seminum) seminum = "";
+        var matchkey = event.year + event.event_code + "_" + complevel + seminum + "m" + matchnum;
+        return await this.callTBA("/match/" + matchkey);
+    }
+
+    // EVENT FUNCTIONS
+
+    /**
+     * Gives the teams at an event.
+     * @param {Object} event - An event.
+     * @returns {Promise<Object[]>} A promise containing an array of teams that are at the event.
+     * @async
+     */
+    async getTeamsAtEvent(event) {
+        var eventkey = event.key;
+        return await this.callTBA("/event/" + eventkey + "/teams");
+    }
+
+    /**
+     * Gives the matches at an event.
+     * @param {Object} match - A match.
+     * @returns {Promise<Object[]>} A promise containing an array of matches at the event.
+     * @async
+     */
+    async getMatchesAtEvent(event) {
+        var eventkey = event.key;
+        return await this.callTBA("/event/" + eventkey + "/matches");
     }
 
 };

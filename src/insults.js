@@ -1,6 +1,6 @@
 /**
     INSULTS ADD-ON
-    This will be fun if I get it to work :)
+    @description This will be fun if I get it to work :)
 
     @author SKYE KYCHENTHAL
     @author Peddie Robotics

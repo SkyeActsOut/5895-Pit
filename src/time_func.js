@@ -7,7 +7,7 @@
 */
 
 /**
-*   Converts minutes to a read-able format.
+*   @description Converts minutes to a read-able format.
 *   @param {Int} t - turns an int into a time string.
 *       5 --> 05
 *       15 --> 15
@@ -19,7 +19,7 @@ function convertMin (t) {
     return t;
 }
 /**
-*   Converts hours to a read-able format.
+*   @description Converts hours to a read-able format.
 *   @param {Int} t - turns an 24-hr int into a time string.
 *   @returns {String}
 */
@@ -30,7 +30,7 @@ function convertHr (t) { // Converts hours from Military to normal
     return Math.abs(_t)
 }
 /**
-*   Gets whether an hour is in the AM or PM
+*   @description Gets whether an hour is in the AM or PM
 *   @param {Int} t - 24hr int
 *   @returns {String}
 */

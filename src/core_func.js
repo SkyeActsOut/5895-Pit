@@ -7,7 +7,7 @@
 */
 
 /**
-*    Loads a bunch of TBA and Spreadsheet data to update our panel
+*    @description Loads a bunch of TBA and Spreadsheet data to update our panel
 *    @param {String} key - the key for the specific google sheets
 *    @param {String} sheet - the specific google sheets spreadsheet
 *    @returns {String} url - The URL for the spreadsheet to be loaded through AJAX
@@ -19,7 +19,7 @@ function loadCSV (key, sheet) {
 }
 
 /**
-*   Shuffles Array
+*   @description Shuffles Array
 *   @param {Array} array
 *   @returns {Array}
 */
