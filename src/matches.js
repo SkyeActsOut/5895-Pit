@@ -84,6 +84,11 @@ class Matches {
         
     }
 
+    getFinal () {
+        let matches = this.getAll()
+        return matches[matches.length - 1];
+    }
+
     /**
      * @description updates matches with a new matches_raw and sorts
      * @param {Array} matches_raw Raw set of matches from TBA

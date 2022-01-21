@@ -8,12 +8,15 @@
 
 /**
 *   @description Makes a team s t r o n g
-*   @param {String} sheet - the specific google sheets spreadsheet
+*   @param {String} t - The team to be checked 
+*   @param {String} user_team - The currently using team
 *   @returns bolded text
 */
 function strong (t, user_team) {
-    if (t == user_team)
+    if (t == user_team) {
+        // console.log ("S T R O N K")
         return `<strong>${t}</strong>`;
+    }
     return t;
 }
 
@@ -61,10 +64,53 @@ function getWinner (m){ // Gets a matches winning team or none if it hasn't happ
     // CHECKS FOR TIES
     // Comment out to purposefully break an event to check how curr & next events are functioning
     else if (m.alliances.blue.score == m.alliances.red.score) 
-        return `<div class='red'>[T]</div>`
+        return `<div class='neutral'>[T]</div>`
     
-    return false
+    return '[X]'
 }
+/**
+*   @description Did someone win this match yet? 
+*   @param {Object} m - The specific match
+*   @returns {Boolean}
+*/
+function didWin(m) {
+    let win = m.winning_alliance;
+    let alliances = m.alliances;
+
+    return (
+            win == 'blue' || //Blue won
+            win == 'red' ||  // Red One
+            alliances.blue.score == alliances.red.score // Tie
+        )
+
+}
+
+/**
+*   @description Gets Winning Alliance
+*   @param {Array} matches - The list of matches
+*   @returns {Boolean}
+*/
+function eventWinner (matches) {
+    let final3 = matches.slice(-3);
+    let finals = 0;
+    if (didWin(final3[2])){
+        final3.forEach (m => {
+            if (m.comp_level == 'f') {
+                let win = m.winning_alliance;
+                if (win == 'blue')
+                    finals+=1;
+                else
+                    finals-=1;
+            }
+        })
+        if (finals > 0)
+            return 'blue'
+        return 'red';
+    }
+    else
+        return false;
+}
+
 /**
 *   @description Gets a teams OPR from our data
 *   @param {Array} OPR - the OPR spreadsheet as a CSV

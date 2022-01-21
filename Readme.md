@@ -23,6 +23,7 @@ In-progress & future features can be found on the [5895-Pit Trello](https://trel
 ### Production Notes
 1. This is (currently) entirely a front-end application, so a web-server such [http-server](https://www.npmjs.com/package/http-server) or [Apache2](https://httpd.apache.org/) is required to run. 
 2. `Config.JSON` is required to run. Example config.JSON [here](https://github.com/SkyMocha/5895-Pit/blob/main/ex_config.json).
+3. In `Config.JSON` a TBA Key is required. You can get yours [here](https://www.thebluealliance.com/apidocs).
 
 ### File Structure
 ```

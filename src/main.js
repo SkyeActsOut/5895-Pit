@@ -160,7 +160,7 @@ function main (prod=false) {
                                                     `
                                                     
                                                 // If the match currently being added is the currently running match, then close off the string
-                                                if (!getWinner(match) && !latest_flag) {
+                                                if (!didWin(match) && !latest_flag) {
                                                     latest_flag = true;
                                                     _s += `</div>`
                                                     latest = _s;
@@ -213,8 +213,41 @@ function main (prod=false) {
                                             });
 
                                             if (!latest_flag && !next_match){
-                                                latest = "Add who won later I guess"
-                                                next_match = "uwu uwu uwu"
+                                                let winner = eventWinner(matches.getAll())
+                                                let fin_match = matches.getFinal();
+
+                                                let teams = []
+
+                                                let blue = fin_match.alliances.blue; // gets blue & red alliance teams
+                                                let red = fin_match.alliances.red;
+                                                
+                                                if (winner == 'blue')
+                                                    teams = [
+                                                        getTeam(blue, 0),
+                                                        getTeam(blue, 1),
+                                                        getTeam(blue, 2)
+                                                    ]
+                                                else
+                                                    teams = [
+                                                        getTeam(red, 0),
+                                                        getTeam(red, 1),
+                                                        getTeam(red, 2)
+                                                    ]
+                                                latest = `
+                                                    <div> 
+                                                        <strong>Winning Team!! Nya!</strong>
+                                                        <br>
+                                                        <div class='${winner}'>${strong(teams[0])}</div>
+                                                        <div class='${winner}'>${strong(teams[1])}</div>
+                                                        <div class='${winner}'>${strong(teams[2])}</div>
+                                                    </div>
+                                                `
+                                                if (
+                                                        teams[0] == user_team ||
+                                                        teams[1] == user_team ||
+                                                        teams[2] == user_team
+                                                    )
+                                                    next_match = `<img src="https://c.tenor.com/Rjd2gEQbB0wAAAAM/bowling-strike.gif">`
                                             }
 
                                             $(".curr_match").html(latest);
